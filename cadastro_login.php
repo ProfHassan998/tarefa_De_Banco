@@ -26,9 +26,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt) {
             $stmt->bind_param("ss", $login, $senha_hash);
             if ($stmt->execute()) {
-                echo "Conta criada com sucesso! <a href='login.php'>Fazer login</a>";
                 $stmt->close();
                 $conn->close();
+                ?>
+                <!DOCTYPE html>
+                <html lang="pt-BR">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Conta criada</title>
+                    <link rel="stylesheet" href="estilo.css">
+                </head>
+                <body>
+                <div class="pagina">
+                    <header class="topo">
+                        <h1><span class="icone">💾</span>Sistema de Cadastro</h1>
+                        <p class="tagline">Cadastro, consulta e login &mdash; PHP + MySQL, do jeito clássico.</p>
+                    </header>
+                    <div class="painel">
+                        <h2>Criar Conta</h2>
+                        <p class="mensagem-sucesso">Conta criada com sucesso! <a href="login.php">Fazer login</a></p>
+                    </div>
+                </div>
+                </body>
+                </html>
+                <?php
                 exit;
             } else {
                 // errno 1062 = login duplicado (violação da restrição UNIQUE)
@@ -52,31 +73,58 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Conta</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <h2>Criar Conta</h2>
+<div class="pagina">
 
-    <?php if ($mensagem !== ""): ?>
-        <p style="color:red;"><?php echo htmlspecialchars($mensagem); ?></p>
-    <?php endif; ?>
+    <header class="topo">
+        <h1><span class="icone">💾</span>Sistema de Cadastro</h1>
+        <p class="tagline">Cadastro, consulta e login &mdash; PHP + MySQL, do jeito clássico.</p>
+    </header>
 
-    <form action="cadastro_login.php" method="POST">
-        <div class="campo">
-            <label for="login">Login</label>
-            <input type="text" id="login" name="login" required maxlength="50">
-        </div>
-        <div class="campo">
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" required>
-        </div>
-        <div class="campo">
-            <label for="confirmar_senha">Confirmar senha</label>
-            <input type="password" id="confirmar_senha" name="confirmar_senha" required>
-        </div>
-        <button type="submit">Cadastrar</button>
-    </form>
+    <nav class="menu">
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="cadastro_login.php">Criar Conta</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="consulta.php">Consulta</a></li>
+            <li><a href="consulta_a_z.php">Consulta A-Z</a></li>
+            <li><a href="pesquisa.php">Pesquisar</a></li>
+            <li><a href="edicao.php">Editar / Excluir</a></li>
+        </ul>
+    </nav>
 
-    <p>Já tem conta? <a href="login.php">Entrar</a></p>
-    <p><a href="index.html">Voltar</a></p>
+    <div class="painel">
+        <h2>Criar Conta</h2>
+
+        <?php if ($mensagem !== ""): ?>
+            <p class="mensagem-erro"><?php echo htmlspecialchars($mensagem); ?></p>
+        <?php endif; ?>
+
+        <form action="cadastro_login.php" method="POST">
+            <div class="campo">
+                <label for="login">Login</label>
+                <input type="text" id="login" name="login" required maxlength="50">
+            </div>
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+            <div class="campo">
+                <label for="confirmar_senha">Confirmar senha</label>
+                <input type="password" id="confirmar_senha" name="confirmar_senha" required>
+            </div>
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <p>Já tem conta? <a href="login.php">Entrar</a></p>
+    </div>
+
+    <footer class="rodape">
+        Feito com PHP + MySQL &middot; XAMPP &middot; projeto de aula
+    </footer>
+
+</div>
 </body>
 </html>

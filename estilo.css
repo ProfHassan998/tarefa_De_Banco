@@ -1,0 +1,325 @@
+/* estilo.css
+   Folha de estilo única, usada por todas as páginas do projeto.
+   Visual inspirado nos sites/blogs de tecnologia de por volta de 2012:
+   gradientes, cantos arredondados, sombras suaves e botões "brilhantes". */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    font-family: "Trebuchet MS", "Segoe UI", Verdana, Arial, sans-serif;
+    color: #333333;
+    background-color: #dfe8f1;
+    background-image: linear-gradient(to bottom, #eef3f8 0%, #d7e4f0 100%);
+    background-attachment: fixed;
+}
+
+.pagina {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===== Cabeçalho estilo "blog" ===== */
+
+header.topo {
+    background-color: #2c5f94;
+    background-image: linear-gradient(to bottom, #5b9bd5 0%, #2c5f94 100%);
+    border: 1px solid #1f4e79;
+    border-radius: 10px 10px 0 0;
+    padding: 22px 25px 18px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header.topo h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
+    letter-spacing: 0.5px;
+}
+
+header.topo h1 .icone {
+    margin-right: 8px;
+}
+
+header.topo p.tagline {
+    margin: 4px 0 0;
+    color: #dceaf9;
+    font-size: 13px;
+    font-style: italic;
+}
+
+/* Menu em forma de "abas" coladas embaixo do cabeçalho */
+nav.menu {
+    background-color: #eef3f8;
+    border: 1px solid #b8cbe0;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+nav.menu a {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #ffffff;
+    background-image: linear-gradient(to bottom, #ffffff 0%, #e3ecf5 100%);
+    border: 1px solid #b8cbe0;
+    border-radius: 5px;
+    color: #1f4e79;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+nav.menu a:hover {
+    background-image: linear-gradient(to bottom, #eaf2fb 0%, #cfe0f2 100%);
+    border-color: #7fa8cc;
+}
+
+/* ===== Painel principal (cartão branco) ===== */
+
+.painel {
+    background-color: #ffffff;
+    border: 1px solid #c3d3e3;
+    border-radius: 10px;
+    padding: 22px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.painel h2 {
+    margin-top: 0;
+    color: #2c5f94;
+    border-bottom: 2px solid #dbe6f2;
+    padding-bottom: 10px;
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+/* ===== Formulários ===== */
+
+.campo {
+    margin-bottom: 14px;
+}
+
+.campo label,
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #2c5f94;
+    font-size: 13px;
+}
+
+.obrigatorio {
+    color: #c0392b;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+textarea {
+    width: 100%;
+    max-width: 420px;
+    padding: 8px 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #333333;
+    background-color: #fbfdff;
+    border: 1px solid #a9c1d9;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #5b9bd5;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 5px rgba(91, 155, 213, 0.6);
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* ===== Botões estilo "Web 2.0" (brilhantes, com gradiente) ===== */
+
+button,
+input[type="submit"] {
+    display: inline-block;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+    background-color: #3d85c6;
+    background-image: linear-gradient(to bottom, #6cb2eb 0%, #3d85c6 100%);
+    border: 1px solid #2c5f94;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-image: linear-gradient(to bottom, #5aa3e0 0%, #2f6ca8 100%);
+}
+
+button:active,
+input[type="submit"]:active {
+    background-image: linear-gradient(to bottom, #3d85c6 0%, #6cb2eb 100%);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Link estilizado como botão secundário (ex: Cancelar, Voltar, Limpar Busca) */
+a.botao,
+.acoes a {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid #b8cbe0;
+    background-color: #eef3f8;
+    color: #2c5f94;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+a.botao:hover,
+.acoes a:hover {
+    background-color: #dbe6f2;
+}
+
+a.botao.excluir {
+    color: #a94442;
+    border-color: #e3b3b0;
+    background-color: #fdf0ef;
+}
+
+a.botao.excluir:hover {
+    background-color: #fbe0dd;
+}
+
+/* ===== Tabelas de listagem ===== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+table th {
+    background-color: #2c5f94;
+    background-image: linear-gradient(to bottom, #5b9bd5 0%, #2c5f94 100%);
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 8px;
+    text-align: left;
+    border: 1px solid #1f4e79;
+}
+
+table td {
+    padding: 8px;
+    border: 1px solid #dbe6f2;
+    background-color: #ffffff;
+}
+
+table tr:nth-child(even) td {
+    background-color: #eef3f8;
+}
+
+table tr:hover td {
+    background-color: #d9ecfb;
+}
+
+.total-registros {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #2c5f94;
+    font-weight: bold;
+}
+
+/* ===== Mensagens (erro / sucesso / status) ===== */
+
+.mensagem-erro,
+.mensagem-sucesso,
+.status-login {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 13px;
+}
+
+.mensagem-erro {
+    background-color: #fdecea;
+    border: 1px solid #e3b3b0;
+    color: #a94442;
+}
+
+.mensagem-sucesso {
+    background-color: #eaf7ea;
+    border: 1px solid #b6dcb6;
+    color: #2e7031;
+}
+
+.status-login {
+    background-color: #eef3f8;
+    border: 1px solid #c3d3e3;
+    color: #2c5f94;
+}
+
+.status-login a {
+    color: #a94442;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.status-login a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Links comuns ===== */
+
+a {
+    color: #1a6bb5;
+}
+
+a:hover {
+    color: #12508a;
+}
+
+/* ===== Rodapé estilo blog ===== */
+
+footer.rodape {
+    text-align: center;
+    font-size: 12px;
+    color: #7a8fa6;
+    margin-top: 25px;
+    padding-top: 12px;
+}

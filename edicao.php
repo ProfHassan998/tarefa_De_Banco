@@ -5,6 +5,8 @@
 
 require_once "conexao.php";
 
+$mensagem_erro = "";
+
 // --- Lógica de Exclusão de Registro ---
 if (isset($_GET['excluir'])) {
     $codigo_excluir = intval($_GET['excluir']); // Garante que é um número inteiro
@@ -18,7 +20,7 @@ if (isset($_GET['excluir'])) {
         if ($stmt_delete->execute()) {
             echo "<script>alert('Registro excluído com sucesso!'); window.location.href='edicao.php';</script>";
         } else {
-            echo "<p style='color:red;'>Erro ao excluir registro: " . $stmt_delete->error . "</p>";
+            $mensagem_erro = "Erro ao excluir registro: " . $stmt_delete->error;
         }
         $stmt_delete->close();
     }
@@ -30,80 +32,116 @@ if (isset($_GET['busca'])) {
     $nome_busca = trim($_GET['busca']);
 }
 ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar / Excluir Cadastros</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div class="pagina">
 
-<!-- Formulário HTML de Consulta -->
-<h2>Consultar por Nome</h2>
-<form method="GET" action="">
-    <input type="text" name="busca" placeholder="Digite o nome..." value="<?php echo htmlspecialchars($nome_busca); ?>">
-    <button type="submit">Buscar</button>
-    <a href="edicao.php">Limpar Busca</a>
-</form>
-<br>
+    <header class="topo">
+        <h1><span class="icone">💾</span>Sistema de Cadastro</h1>
+        <p class="tagline">Cadastro, consulta e login &mdash; PHP + MySQL, do jeito clássico.</p>
+    </header>
 
-<?php
-// Passo 2: Preparar a consulta SQL dinâmica com base na busca
-if ($nome_busca !== "") {
-    $sql = "SELECT codigo, nome, sobrenome, endereco, cidade, telefone, comentario
-            FROM cadastro
-            WHERE nome LIKE ?
-            ORDER BY nome ASC";
-} else {
-    $sql = "SELECT codigo, nome, sobrenome, endereco, cidade, telefone, comentario
-            FROM cadastro
-            ORDER BY nome ASC";
-}
+    <nav class="menu">
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="cadastro_login.php">Criar Conta</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="consulta.php">Consulta</a></li>
+            <li><a href="consulta_a_z.php">Consulta A-Z</a></li>
+            <li><a href="pesquisa.php">Pesquisar</a></li>
+            <li><a href="edicao.php">Editar / Excluir</a></li>
+        </ul>
+    </nav>
 
-$stmt = $conn->prepare($sql);
+    <div class="painel">
+        <h2>Consultar por Nome</h2>
 
-if ($stmt) {
-    if ($nome_busca !== "") {
-        $param_busca = "%" . $nome_busca . "%";
-        $stmt->bind_param("s", $param_busca);
-    }
+        <?php if ($mensagem_erro !== ""): ?>
+            <p class="mensagem-erro"><?php echo htmlspecialchars($mensagem_erro); ?></p>
+        <?php endif; ?>
 
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+        <form method="GET" action="" style="margin-bottom: 18px;">
+            <input type="search" name="busca" placeholder="Digite o nome..." value="<?php echo htmlspecialchars($nome_busca); ?>">
+            <button type="submit">Buscar</button>
+            <a href="edicao.php" class="botao">Limpar Busca</a>
+        </form>
 
-    // Passo 3: Verificar se existem registros e exibi-los
-    if ($resultado->num_rows > 0) {
-        echo "<h2>Lista de Cadastros</h2>";
-        echo "<table border='1' cellpadding='10' cellspacing='0'>";
-        echo "<tr><th>Codigo</th>
-              <th>Nome</th><th>Sobrenome</th><th>Endereço</th><th>Cidade</th>
-              <th>Telefone</th><th>Comentário</th>
-              <th>Ações</th></tr>";
-
-        while ($linha = $resultado->fetch_assoc()) {
-            $id = (int) $linha['codigo'];
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($linha['codigo']) . "</td>";
-            echo "<td>" . htmlspecialchars($linha['nome']) . "</td>";
-            echo "<td>" . htmlspecialchars($linha['sobrenome']) . "</td>";
-            echo "<td>" . htmlspecialchars($linha['endereco']) . "</td>";
-            echo "<td>" . htmlspecialchars($linha['cidade']) . "</td>";
-            echo "<td>" . htmlspecialchars($linha['telefone']) . "</td>";
-            echo "<td>" . htmlspecialchars($linha['comentario']) . "</td>";
-
-            // --- Botões de Editar e Excluir ---
-            echo "<td>";
-            echo " <a href='editar.php?codigo=" . $id . "' style='color: blue; font-weight: bold; text-decoration: none;'>📝 Editar</a> | ";
-            echo " <a href='edicao.php?excluir=" . $id . "' onclick=\"return confirm('Tem certeza que deseja excluir este registro?');\" style='color: red; font-weight: bold; text-decoration: none;'>❌ Excluir</a>";
-            echo "</td>";
-
-            echo "</tr>";
+        <?php
+        // Passo 2: Preparar a consulta SQL dinâmica com base na busca
+        if ($nome_busca !== "") {
+            $sql = "SELECT codigo, nome, sobrenome, endereco, cidade, telefone, comentario
+                    FROM cadastro
+                    WHERE nome LIKE ?
+                    ORDER BY nome ASC";
+        } else {
+            $sql = "SELECT codigo, nome, sobrenome, endereco, cidade, telefone, comentario
+                    FROM cadastro
+                    ORDER BY nome ASC";
         }
-        echo "</table>";
-        echo "<br>Total de registros encontrados: " . $resultado->num_rows;
-    } else {
-        echo "Nenhum registro encontrado.";
-    }
 
-    $stmt->close();
-} else {
-    echo "Erro na preparação da consulta: " . $conn->error;
-}
+        $stmt = $conn->prepare($sql);
 
-$conn->close();
-?>
-<br>
-<a href="index.html">Voltar ao cadastro</a>
+        if ($stmt) {
+            if ($nome_busca !== "") {
+                $param_busca = "%" . $nome_busca . "%";
+                $stmt->bind_param("s", $param_busca);
+            }
+
+            $stmt->execute();
+            $resultado = $stmt->get_result();
+
+            // Passo 3: Verificar se existem registros e exibi-los
+            if ($resultado->num_rows > 0) {
+                echo "<table>";
+                echo "<tr><th>Codigo</th>
+                      <th>Nome</th><th>Sobrenome</th><th>Endereço</th><th>Cidade</th>
+                      <th>Telefone</th><th>Comentário</th>
+                      <th>Ações</th></tr>";
+
+                while ($linha = $resultado->fetch_assoc()) {
+                    $id = (int) $linha['codigo'];
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($linha['codigo']) . "</td>";
+                    echo "<td>" . htmlspecialchars($linha['nome']) . "</td>";
+                    echo "<td>" . htmlspecialchars($linha['sobrenome']) . "</td>";
+                    echo "<td>" . htmlspecialchars($linha['endereco']) . "</td>";
+                    echo "<td>" . htmlspecialchars($linha['cidade']) . "</td>";
+                    echo "<td>" . htmlspecialchars($linha['telefone']) . "</td>";
+                    echo "<td>" . htmlspecialchars($linha['comentario']) . "</td>";
+
+                    // --- Botões de Editar e Excluir ---
+                    echo "<td class='acoes'>";
+                    echo " <a href='editar.php?codigo=" . $id . "' class='botao'>📝 Editar</a> ";
+                    echo " <a href='edicao.php?excluir=" . $id . "' onclick=\"return confirm('Tem certeza que deseja excluir este registro?');\" class='botao excluir'>❌ Excluir</a>";
+                    echo "</td>";
+
+                    echo "</tr>";
+                }
+                echo "</table>";
+                echo "<p class='total-registros'>Total de registros encontrados: " . $resultado->num_rows . "</p>";
+            } else {
+                echo "<p>Nenhum registro encontrado.</p>";
+            }
+
+            $stmt->close();
+        } else {
+            echo "<p class='mensagem-erro'>Erro na preparação da consulta: " . htmlspecialchars($conn->error) . "</p>";
+        }
+
+        $conn->close();
+        ?>
+    </div>
+
+    <footer class="rodape">
+        Feito com PHP + MySQL &middot; XAMPP &middot; projeto de aula
+    </footer>
+
+</div>
+</body>
+</html>

@@ -3,53 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Formulário de Cadastro</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <h2>Cadastro de Usuário</h2>
+<div class="pagina">
 
-    <!-- 1) HTML coleta os dados do usuário -->
-    <!-- 2) Ao enviar, o navegador faz um POST para salvar.php -->
-    <form action="salvar.php" method="POST">
-        <div class="campo">
-            <label for="nome">Nome
-			<span class="obrigatorio">*</span></label>
-            <input type="text" id="nome" name="nome" required maxlength="50">
-        </div>
-        <div class="campo">
-            <label for="sobrenome">Sobrenome
-			<span class="obrigatorio">*</span></label>
-            <input type="text" id="sobrenome" name="sobrenome" required maxlength="50">
-        </div>
-        <div class="campo">
-            <label for="endereco">Endereço</label>
-            <input type="text" id="endereco" name="endereco" maxlength="100">
-        </div>
-        <div class="campo">
-            <label for="cidade">Cidade</label>
-            <input type="text" id="cidade" name="cidade" maxlength="100">
-        </div>
-        <div class="campo">
-            <label for="telefone">Telefone</label>
-            <input type="text" id="telefone" name="telefone"
-            placeholder="(00) 00000-0000">
-        </div>
-        <div class="campo">
-            <label for="comentario">Comentário</label>
-            <textarea id="comentario" name="comentario"></textarea>
-        </div>
-        <button type="submit">Enviar Cadastro</button>
-    </form>
+    <header class="topo">
+        <h1><span class="icone">💾</span>Sistema de Cadastro</h1>
+        <p class="tagline">Cadastro, consulta e login &mdash; PHP + MySQL, do jeito clássico.</p>
+    </header>
 
-    <hr>
-    <p>Outras páginas do projeto:</p>
-    <ul>
-        <li><a href="cadastro_login.php">Criar conta (login/senha)</a></li>
-        <li><a href="login.php">Login</a></li>
-        <li><a href="consulta.php">Consulta (listar todos) — exige login</a></li>
-        <li><a href="consulta_a_z.php">Consulta em ordem A-Z</a></li>
-        <li><a href="pesquisa.php">Pesquisar por nome</a></li>
-        <li><a href="edicao.php">Editar / Excluir cadastros</a></li>
-    </ul>
+    <nav class="menu">
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="cadastro_login.php">Criar Conta</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="consulta.php">Consulta</a></li>
+            <li><a href="consulta_a_z.php">Consulta A-Z</a></li>
+            <li><a href="pesquisa.php">Pesquisar</a></li>
+            <li><a href="edicao.php">Editar / Excluir</a></li>
+        </ul>
+    </nav>
 
+    <div class="painel">
+        <h2>Cadastro de Usuário</h2>
+
+        <!-- 1) HTML coleta os dados do usuário -->
+        <!-- 2) Ao enviar, o navegador faz um POST para salvar.php -->
+        <form action="salvar.php" method="POST">
+            <div class="campo">
+                <label for="nome">Nome
+				<span class="obrigatorio">*</span></label>
+                <input type="text" id="nome" name="nome" required maxlength="50">
+            </div>
+            <div class="campo">
+                <label for="sobrenome">Sobrenome
+				<span class="obrigatorio">*</span></label>
+                <input type="text" id="sobrenome" name="sobrenome" required maxlength="50">
+            </div>
+            <div class="campo">
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" name="endereco" maxlength="100">
+            </div>
+            <div class="campo">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" maxlength="100">
+            </div>
+            <div class="campo">
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" name="telefone"
+                placeholder="(00) 00000-0000">
+            </div>
+            <div class="campo">
+                <label for="comentario">Comentário</label>
+                <textarea id="comentario" name="comentario"></textarea>
+            </div>
+            <button type="submit">Enviar Cadastro</button>
+        </form>
+    </div>
+
+    <footer class="rodape">
+        Feito com PHP + MySQL &middot; XAMPP &middot; projeto de aula
+    </footer>
+
+</div>
 </body>
 </html>
